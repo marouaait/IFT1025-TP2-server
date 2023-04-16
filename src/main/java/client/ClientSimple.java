@@ -39,6 +39,19 @@ public class ClientSimple {
         }
     }
 
+    private void inscrireCours(String prenom, String nom, String email, String matricule, String cours) {
+        try {
+            this.connect();
+            os.writeObject("INSCRIRE " + prenom + " " + nom + " " + email + " " + matricule + " " + cours + "\n");
+            os.flush();
+            this.disconnect();
+        } catch (ConnectException x) {
+            System.out.println("Connexion impossible sur port 1337: pas de serveur");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getPort() {
         return port;
     }
@@ -50,5 +63,6 @@ public class ClientSimple {
     public static void main(String[] args) {
         ClientSimple client = new ClientSimple("127.0.0.1", 1337);
         client.afficherCours("AUTOMNE2022");
+        client.inscrireCours("Maroua", "Ait El Baz", "marouaelbaz", "123", "456");
     }
 }
