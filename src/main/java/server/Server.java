@@ -92,6 +92,7 @@ public class Server {
      */
     public void handleLoadCourses(String arg) {
         // TODO: implémenter cette méthode
+        System.out.println("load" + arg);
     }
 
     /**
@@ -101,6 +102,7 @@ public class Server {
      */
     public void handleRegistration() {
         // TODO: implémenter cette méthode
+        System.out.println("register");
     }
 }
 
