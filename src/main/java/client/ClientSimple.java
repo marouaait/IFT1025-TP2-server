@@ -34,12 +34,9 @@ public class ClientSimple {
     }
 
     private void connect() throws IOException {
-        System.out.println("A");
         serveur = new Socket(this.ip, this.port);
         os = new ObjectOutputStream(serveur.getOutputStream());
-        System.out.println("B");
         is = new ObjectInputStream(serveur.getInputStream());
-        System.out.println("C");
     }
 
     private void disconnect() throws  IOException {
@@ -76,12 +73,10 @@ public class ClientSimple {
         try {
             this.connect();
             os.writeObject("INSCRIRE ");
-            os.flush();
-            this.connect();
-            System.out.println("2");
             os.writeObject(formulaire);
             os.flush();
-            //this.disconnect();
+            this.disconnect();
+            System.out.println("\nFélicitations! Inscription réussie de " + prenom + " au cours " + codeCours);
         } catch (ConnectException x) {
             System.out.println("Connexion impossible sur port 1337: pas de serveur");
         } catch (IOException e) {
@@ -118,7 +113,7 @@ public class ClientSimple {
             for (int i = 0; i < listeCours.size(); i++) {
                 System.out.println((i+1) + ". " + listeCours.get(i).getCode() + "\t" + listeCours.get(i).getName());
             }
-            //this.disconnect();
+            this.disconnect();
         } catch (ConnectException x) {
             System.out.println("Connexion impossible sur port 1337: pas de serveur");
         } catch (IOException e) {

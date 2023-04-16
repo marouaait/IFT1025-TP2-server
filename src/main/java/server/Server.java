@@ -119,10 +119,21 @@ public class Server {
      */
     public void handleRegistration() {
         try {
-            System.out.println("1");
             RegistrationForm rf = (RegistrationForm) objectInputStream.readObject();
-            System.out.println("Register form: " + rf);
-            System.out.println("3");
+
+            FileWriter fw = new FileWriter("src/main/java/server/data/inscription.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            Course cours = rf.getCourse();
+            bw.append(cours.getSession() + "\t" +
+                    cours.getCode() + "\t" +
+                    rf.getMatricule() + "\t" +
+                    rf.getPrenom() + "\t" +
+                    rf.getNom() + "\t" +
+                    rf.getEmail() + "\n");
+
+            bw.close();
+            fw.close();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
