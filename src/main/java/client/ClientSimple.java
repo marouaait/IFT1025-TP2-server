@@ -12,6 +12,7 @@ public class ClientSimple {
     private String ip;
     private int port;
     private Socket serveur;
+    private ObjectInputStream is;
     private ObjectOutputStream os;
     private static String[] sessions = {"Automne", "Hiver", "Ete"};
     private Scanner sc = new Scanner(System.in);
@@ -32,6 +33,7 @@ public class ClientSimple {
     private void connect() throws IOException {
         serveur = new Socket(this.ip, this.port);
         os = new ObjectOutputStream(serveur.getOutputStream());
+        is = new ObjectInputStream(serveur.getInputStream());
     }
 
     private void disconnect() throws  IOException {
@@ -86,12 +88,18 @@ public class ClientSimple {
         System.out.println("Les cours offerts pendant la session d'" + session.toLowerCase() + " sont:");
         try {
             this.connect();
-            os.writeObject("CHARGER " + session + "\n");
+            os.writeObject("CHARGER " + session);
             os.flush();
+            ArrayList<Course> listeCours = (ArrayList) is.readObject();
+            for (int i = 0; i < listeCours.size(); i++) {
+                System.out.println((i+1) + ". " + listeCours.get(i).getCode() + "\t" + listeCours.get(i).getName());
+            }
             //this.disconnect();
         } catch (ConnectException x) {
             System.out.println("Connexion impossible sur port 1337: pas de serveur");
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

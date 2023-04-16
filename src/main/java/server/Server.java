@@ -1,14 +1,14 @@
 package server;
 
 import javafx.util.Pair;
+import server.models.Course;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Server {
 
@@ -92,7 +92,23 @@ public class Server {
      */
     public void handleLoadCourses(String arg) {
         // TODO: implémenter cette méthode
-        System.out.println("load" + arg);
+        try {
+            Scanner sc = new Scanner(new File("src/main/java/server/data/cours.txt"));
+            ArrayList<Course> listeCours = new ArrayList<>();;
+            while(sc.hasNext()) {
+                String line = sc.nextLine();
+                String[] cours = line.split("\t");
+                if (cours[2].equals(arg)) {
+                    listeCours.add(new Course(cours[1], cours[0], cours[2]));
+                }
+            }
+            objectOutputStream.writeObject(listeCours);
+
+            sc.close();
+
+        } catch (IOException e) {
+            System.out.println("Erreur à l'ouverture du fichier cours.txt");
+        }
     }
 
     /**
