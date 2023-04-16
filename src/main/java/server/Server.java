@@ -2,6 +2,7 @@ package server;
 
 import javafx.util.Pair;
 import server.models.Course;
+import server.models.RegistrationForm;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -117,8 +118,16 @@ public class Server {
      La méthode gére les exceptions si une erreur se produit lors de la lecture de l'objet, l'écriture dans un fichier ou dans le flux de sortie.
      */
     public void handleRegistration() {
-        // TODO: implémenter cette méthode
-        System.out.println("register");
+        try {
+            System.out.println("1");
+            RegistrationForm rf = (RegistrationForm) objectInputStream.readObject();
+            System.out.println("Register form: " + rf);
+            System.out.println("3");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
 

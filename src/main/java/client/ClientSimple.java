@@ -1,6 +1,7 @@
 package client;
 
 import server.models.Course;
+import server.models.RegistrationForm;
 
 import java.io.*;
 import java.net.ConnectException;
@@ -14,7 +15,9 @@ public class ClientSimple {
     private Socket serveur;
     private ObjectInputStream is;
     private ObjectOutputStream os;
-    private static String[] sessions = {"Automne", "Hiver", "Ete"};
+    private static String[] sessionsOffertes = {"Automne", "Hiver", "Ete"};
+    private ArrayList<Course> listeCours = new ArrayList<>();
+    private String session;
     private Scanner sc = new Scanner(System.in);
 
     public ClientSimple(String ip, int port) {
@@ -31,9 +34,12 @@ public class ClientSimple {
     }
 
     private void connect() throws IOException {
+        System.out.println("A");
         serveur = new Socket(this.ip, this.port);
         os = new ObjectOutputStream(serveur.getOutputStream());
+        System.out.println("B");
         is = new ObjectInputStream(serveur.getInputStream());
+        System.out.println("C");
     }
 
     private void disconnect() throws  IOException {
@@ -51,11 +57,29 @@ public class ClientSimple {
         System.out.print("Veuillez saisir votre matricule: ");
         String matricule = sc.nextLine();
         System.out.print("Veuillez saisir le code du cours: ");
-        String cours = sc.nextLine();
+        String codeCours = sc.nextLine();
+
+        int i = 0;
+        for (; i < listeCours.size(); i++) {
+            if (listeCours.get(i).getCode().equals(codeCours)) {
+                break;
+            }
+        }
+
+        if (i == listeCours.size()) {
+            System.out.println("Ce cours n'est pas offert pour la session d'" + session);
+            return;
+        }
+
+        RegistrationForm formulaire = new RegistrationForm(prenom, nom, email, matricule, listeCours.get(i));
 
         try {
             this.connect();
-            os.writeObject("INSCRIRE " + prenom + " " + nom + " " + email + " " + matricule + " " + cours + "\n");
+            os.writeObject("INSCRIRE ");
+            os.flush();
+            this.connect();
+            System.out.println("2");
+            os.writeObject(formulaire);
             os.flush();
             //this.disconnect();
         } catch (ConnectException x) {
@@ -68,8 +92,8 @@ public class ClientSimple {
 
     public void consulterCours() {
         System.out.println("Veuillez choisir la session pour laquelle vous voulez consulter la liste des cours:");
-        for (int i = 1; i <= sessions.length; i++) {
-            System.out.println(i + ". " + sessions[i-1]);
+        for (int i = 1; i <= sessionsOffertes.length; i++) {
+            System.out.println(i + ". " + sessionsOffertes[i-1]);
         }
 
         Scanner sc = new Scanner(System.in);
@@ -77,20 +101,20 @@ public class ClientSimple {
         int choixSession = sc.nextInt();
         sc.nextLine();
 
-        while(choixSession > sessions.length) {
+        while(choixSession > sessionsOffertes.length) {
             System.out.println("Veuillez entrer un choix valide.");
             System.out.print("> Choix: ");
             choixSession = sc.nextInt();
             sc.nextLine();
         }
 
-        String session = sessions[choixSession - 1];
+        session = sessionsOffertes[choixSession - 1];
         System.out.println("Les cours offerts pendant la session d'" + session.toLowerCase() + " sont:");
         try {
             this.connect();
             os.writeObject("CHARGER " + session);
             os.flush();
-            ArrayList<Course> listeCours = (ArrayList) is.readObject();
+            listeCours = (ArrayList) is.readObject();
             for (int i = 0; i < listeCours.size(); i++) {
                 System.out.println((i+1) + ". " + listeCours.get(i).getCode() + "\t" + listeCours.get(i).getName());
             }
