@@ -22,10 +22,10 @@ public class ClientControleur {
         }
     }
 
-    public void inscription(String prenom, String nom, String email, String matricule, String code) {
-        boolean succes = modele.inscrireCours(prenom, nom, email, matricule, code);
+    public void inscription(String prenom, String nom, String email, String matricule, Course cours) {
+        boolean succes = modele.inscrireCours(prenom, nom, email, matricule, cours);
         if (succes) {
-            vue.confirmerInscription(prenom, nom, code);
+            vue.confirmerInscription(prenom, nom, cours);
         } else {
             vue.echecInscription();
         }

@@ -42,19 +42,8 @@ public class ClientModele {
         serveur.close();
     }
 
-    public boolean inscrireCours(String prenom, String nom, String email, String matricule, String codeCours) {
-        int i = 0;
-        for (; i < listeCours.size(); i++) {
-            if (listeCours.get(i).getCode().equals(codeCours)) {
-                break;
-            }
-        }
-
-        if (i == listeCours.size()) {
-            return false;
-        }
-
-        RegistrationForm formulaire = new RegistrationForm(prenom, nom, email, matricule, listeCours.get(i));
+    public boolean inscrireCours(String prenom, String nom, String email, String matricule, Course cours) {
+        RegistrationForm formulaire = new RegistrationForm(prenom, nom, email, matricule, cours);
 
         try {
             this.connect();

@@ -18,6 +18,7 @@ import java.util.List;
 
 public class ClientVue extends Application {
     private TableView<Course> tableCours;
+    private TextField saisiesTexte[] = {new TextField(), new TextField(), new TextField(), new TextField()};
 
     public void chargerCours(Course cours) {
         tableCours.getItems().add(cours);
@@ -89,24 +90,30 @@ public class ClientVue extends Application {
 
         // Zone de saisie de texte
         Text prenomTexte = new Text("Prénom");
-        TextField prenom = new TextField();
         Text nomTexte = new Text("Nom");
-        TextField nom = new TextField();
         Text emailTexte = new Text("Email");
-        TextField email = new TextField();
         Text matriculeTexte = new Text("Matricule");
-        TextField matricule = new TextField();
         GridPane saisies = new GridPane();
         saisies.setVgap(8);
         saisies.setHgap(15);
         saisies.setAlignment(Pos.CENTER);
         saisies.addColumn(0,prenomTexte,nomTexte,emailTexte,matriculeTexte);
-        saisies.addColumn(1,prenom,nom,email,matricule);
+        saisies.addColumn(1,saisiesTexte);
         formulaire.getChildren().add(saisies);
 
         // Bouton envoyer
         Button boutonEnvoyer = new Button("envoyer");
         formulaire.getChildren().add(boutonEnvoyer);
+
+        boutonEnvoyer.setOnAction((action) -> {
+            Course cours = tableCours.getSelectionModel().getSelectedItem();
+            String prenom = saisiesTexte[0].getText();
+            String nom = saisiesTexte[1].getText();
+            String email = saisiesTexte[2].getText();
+            String matricule = saisiesTexte[3].getText();
+
+            controleur.inscription(prenom, nom, email, matricule, cours);
+        });
 
         root.getChildren().add(formulaire);
 
@@ -116,12 +123,18 @@ public class ClientVue extends Application {
         stage.show();
     }
 
-    public void confirmerInscription(String prenom, String nom, String code) {
-
+    public void confirmerInscription(String prenom, String nom, Course cours) {
+        for (TextField saisie : saisiesTexte) {
+            saisie.clear();
+        }
     }
 
     public void echecInscription() {
 
+    }
+
+    public void erreurFormulaire(String texteErreur) {
+        
     }
 
     public static void main(String[] args) {
