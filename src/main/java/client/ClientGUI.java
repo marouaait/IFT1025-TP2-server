@@ -5,10 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Separator;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -26,15 +23,49 @@ public class ClientGUI extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("Inscription UdeM");
-        TilePane root = new TilePane();
+        HBox root = new HBox();
+        root.setSpacing(30);
+        root.setPadding(new Insets(30,30,30,30));
 
         // Partie liste de cours
+        VBox listeCours = new VBox();
+        listeCours.setSpacing(30);
+        listeCours.setAlignment(Pos.CENTER);
+        Text titreListeCours = new Text("Liste des cours");
+        titreListeCours.setFont(Font.font(20));
+        listeCours.getChildren().add(titreListeCours);
 
+        // Table des cours
+        TableView tableCours = new TableView();
+        TableColumn codeColonne = new TableColumn("Code");
+        TableColumn coursColonne = new TableColumn("Cours");
+        tableCours.setPrefWidth(400);
+        tableCours.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        codeColonne.setMaxWidth(1f * Integer.MAX_VALUE * 30);
+        coursColonne.setMaxWidth(1f * Integer.MAX_VALUE * 70);
+
+        tableCours.getColumns().addAll(codeColonne,coursColonne);
+        listeCours.getChildren().add(tableCours);
+
+        // Boutons
+        HBox boutons = new HBox();
+        ComboBox sessions = new ComboBox();
+        sessions.getItems().addAll("Automne", "Hiver", "Été");
+        sessions.getSelectionModel().selectFirst();
+        Button boutonCharger = new Button("charger");
+        boutons.getChildren().addAll(sessions, boutonCharger);
+        boutons.setSpacing(50);
+
+        listeCours.getChildren().add(boutons);
+
+        root.getChildren().add(listeCours);
+
+        root.getChildren().add(new Separator(Orientation.VERTICAL));
 
         // Partie formulaire
-        TilePane formulaire = new TilePane(Orientation.VERTICAL);
-        formulaire.setVgap(10);
-        formulaire.setTileAlignment(Pos.CENTER);
+        VBox formulaire = new VBox();
+        formulaire.setSpacing(50);
+        formulaire.setAlignment(Pos.CENTER);
         Text titreFormulaire = new Text("Formulaire d'inscription");
         titreFormulaire.setFont(Font.font(20));
         formulaire.getChildren().add(titreFormulaire);
@@ -63,7 +94,7 @@ public class ClientGUI extends Application {
         root.getChildren().add(formulaire);
 
         // Afficher la scene
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 600, 600);
         stage.setScene(scene);
         stage.show();
     }
