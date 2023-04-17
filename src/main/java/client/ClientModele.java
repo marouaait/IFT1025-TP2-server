@@ -42,7 +42,7 @@ public class ClientModele {
         serveur.close();
     }
 
-    private boolean inscrireCours(String prenom, String nom, String email, String matricule, String codeCours) {
+    public boolean inscrireCours(String prenom, String nom, String email, String matricule, String codeCours) {
         int i = 0;
         for (; i < listeCours.size(); i++) {
             if (listeCours.get(i).getCode().equals(codeCours)) {

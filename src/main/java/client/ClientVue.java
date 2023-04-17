@@ -6,14 +6,25 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Pair;
+import server.models.Course;
+
+import java.util.List;
 
 public class ClientVue extends Application {
-    public static void main(String[] args) {
-        ClientVue.launch(args);
+    private TableView<Course> tableCours;
+
+    public void chargerCours(Course cours) {
+        tableCours.getItems().add(cours);
+    }
+
+    public void enleverListe() {
+        tableCours.getItems().clear();
     }
 
     @Override
@@ -36,9 +47,11 @@ public class ClientVue extends Application {
         listeCours.getChildren().add(titreListeCours);
 
         // Table des cours
-        TableView tableCours = new TableView();
-        TableColumn codeColonne = new TableColumn("Code");
-        TableColumn coursColonne = new TableColumn("Cours");
+        tableCours = new TableView<Course>();
+        TableColumn codeColonne = new TableColumn<Course, String>("Code");
+        TableColumn coursColonne = new TableColumn<Course, String>("Cours");
+        codeColonne.setCellValueFactory(new PropertyValueFactory<Course, String>("code"));
+        coursColonne.setCellValueFactory(new PropertyValueFactory<Course, String>("name"));
         tableCours.setPrefWidth(400);
         tableCours.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         codeColonne.setMaxWidth(1f * Integer.MAX_VALUE * 30);
@@ -97,5 +110,17 @@ public class ClientVue extends Application {
         Scene scene = new Scene(root, 700, 600);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void confirmerInscription(String prenom, String nom, String code) {
+
+    }
+
+    public void echecInscription() {
+
+    }
+
+    public static void main(String[] args) {
+        ClientVue.launch(args);
     }
 }
