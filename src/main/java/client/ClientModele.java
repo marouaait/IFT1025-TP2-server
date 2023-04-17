@@ -23,14 +23,6 @@ public class ClientModele {
         this.port = port;
     }
 
-    public int getPort() {
-        return port;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
     private void connect() throws IOException {
         serveur = new Socket(this.ip, this.port);
         os = new ObjectOutputStream(serveur.getOutputStream());
@@ -47,33 +39,42 @@ public class ClientModele {
 
         try {
             this.connect();
+            // Envoyer la requête avec le formulaire
             os.writeObject("INSCRIRE ");
             os.writeObject(formulaire);
             os.flush();
+            // Recevoir la confirmation du serveur
+            // On assume que si on ne reçoit pas de confirmation l'inscription a échoué
+            boolean confirmation = (boolean) is.readObject();
             this.disconnect();
-            return true;
+
+            return confirmation;
         } catch (ConnectException x) {
             System.out.println("Connexion impossible sur port 1337: pas de serveur");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Erreur avec le flux serveur");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Erreur avec la confirmation du serveur");
         }
         return false;
     }
 
-    public void consulterCours(String session) {
+    public boolean consulterCours(String session) {
         try {
             this.connect();
             os.writeObject("CHARGER " + session);
             os.flush();
             listeCours = (ArrayList) is.readObject();
             this.disconnect();
+            return true;
         } catch (ConnectException x) {
             System.out.println("Connexion impossible sur port 1337: pas de serveur");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Erreur avec le flux serveur.");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Erreur lors du retrait de la liste de cours du serveur");
         }
+        return false;
     }
 
     public ArrayList<Course> getListeCours() {

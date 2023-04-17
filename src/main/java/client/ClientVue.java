@@ -65,7 +65,7 @@ public class ClientVue extends Application {
         // Bouton charger et selection de session
         HBox boutons = new HBox();
         ComboBox sessions = new ComboBox();
-        sessions.getItems().addAll("Automne", "Hiver", "Ete");
+        sessions.getItems().addAll("Hiver", "Automne", "Ete");
         sessions.getSelectionModel().selectFirst();
         Button boutonCharger = new Button("charger");
         boutons.getChildren().addAll(sessions, boutonCharger);
@@ -132,11 +132,7 @@ public class ClientVue extends Application {
         confirmation.showAndWait();
     }
 
-    public void echecInscription() {
-
-    }
-
-    public void erreurFormulaire(String texteErreur) {
+    public void erreurFenetre(String texteErreur) {
         Alert erreur = new Alert(Alert.AlertType.ERROR, texteErreur, ButtonType.OK);
         erreur.showAndWait();
     }

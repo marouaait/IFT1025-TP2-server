@@ -25,14 +25,6 @@ public class ClientSimple {
         this.port = port;
     }
 
-    public int getPort() {
-        return port;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
     private void connect() throws IOException {
         serveur = new Socket(this.ip, this.port);
         os = new ObjectOutputStream(serveur.getOutputStream());
@@ -75,12 +67,19 @@ public class ClientSimple {
             os.writeObject("INSCRIRE ");
             os.writeObject(formulaire);
             os.flush();
+            boolean confirmation = (boolean) is.readObject();
             this.disconnect();
-            System.out.println("\nFélicitations! Inscription réussie de " + prenom + " au cours " + codeCours);
+            if (confirmation) {
+                System.out.println("\nFélicitations! Inscription réussie de " + prenom + " au cours " + codeCours);
+            } else {
+                System.out.println("Inscription échouée");
+            }
         } catch (ConnectException x) {
             System.out.println("Connexion impossible sur port 1337: pas de serveur");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Erreur avec le flux serveur");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Erreur avec la confirmation du serveur");
         }
     }
 
@@ -117,9 +116,9 @@ public class ClientSimple {
         } catch (ConnectException x) {
             System.out.println("Connexion impossible sur port 1337: pas de serveur");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Erreur avec le flux serveur");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Erreur lors du retrait de la liste de cours du serveur");
         }
     }
 

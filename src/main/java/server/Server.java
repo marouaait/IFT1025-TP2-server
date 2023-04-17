@@ -94,8 +94,11 @@ public class Server {
     public void handleLoadCourses(String arg) {
         // TODO: implémenter cette méthode
         try {
+            // Ouverture du fichier cours.txt
             Scanner sc = new Scanner(new File("src/main/java/server/data/cours.txt"));
-            ArrayList<Course> listeCours = new ArrayList<>();;
+
+            ArrayList<Course> listeCours = new ArrayList<>();
+            // Trouver tous les cours dans la session donnée
             while(sc.hasNext()) {
                 String line = sc.nextLine();
                 String[] cours = line.split("\t");
@@ -103,7 +106,13 @@ public class Server {
                     listeCours.add(new Course(cours[1], cours[0], cours[2]));
                 }
             }
-            objectOutputStream.writeObject(listeCours);
+
+            // Envoyer la liste de cours au client
+            try {
+                objectOutputStream.writeObject(listeCours);
+            } catch (IOException e) {
+                System.out.println("Erreur lors de l'écriture de l'objet dans le flux");
+            }
 
             sc.close();
 
@@ -119,25 +128,42 @@ public class Server {
      */
     public void handleRegistration() {
         try {
+            // Lire le formulaire du client
             RegistrationForm rf = (RegistrationForm) objectInputStream.readObject();
 
-            FileWriter fw = new FileWriter("src/main/java/server/data/inscription.txt", true);
-            BufferedWriter bw = new BufferedWriter(fw);
+            // Écriture dans le fichier
+            File fichierInscription = new File("src/main/java/server/data/inscription.txt");
+            try {
+                // Verifier que le fichier inscription.txt existe
+                if (!fichierInscription.isFile()) {
+                    throw new IOException();
+                }
 
-            Course cours = rf.getCourse();
-            bw.append(cours.getSession() + "\t" +
-                    cours.getCode() + "\t" +
-                    rf.getMatricule() + "\t" +
-                    rf.getPrenom() + "\t" +
-                    rf.getNom() + "\t" +
-                    rf.getEmail() + "\n");
+                FileWriter fw = new FileWriter(fichierInscription, true);
+                BufferedWriter bw = new BufferedWriter(fw);
 
-            bw.close();
-            fw.close();
+                Course cours = rf.getCourse();
+                bw.append(cours.getSession() + "\t" +
+                        cours.getCode() + "\t" +
+                        rf.getMatricule() + "\t" +
+                        rf.getPrenom() + "\t" +
+                        rf.getNom() + "\t" +
+                        rf.getEmail() + "\n");
+
+                bw.close();
+                fw.close();
+            } catch (IOException e) {
+                System.out.println("Erreur avec le fichier inscription.txt");
+                objectOutputStream.writeObject(false);
+            }
+
+            // Confirmation au client
+            objectOutputStream.writeObject(true);
+
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Erreur lors de la lecture de l'objet dans le flux");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Erreur lors du retrait du formulaire client");
         }
     }
 }

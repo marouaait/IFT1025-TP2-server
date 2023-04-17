@@ -14,7 +14,10 @@ public class ClientControleur {
     }
 
     public void chargerCoursSession(String session) {
-        modele.consulterCours(session);
+        boolean succes = modele.consulterCours(session);
+        if (!succes) {
+            vue.erreurFenetre("Erreur lors du chargement des cours.");
+        }
         ArrayList<Course> liste = modele.getListeCours();
         vue.enleverListe();
         for(Course cours : liste) {
@@ -43,7 +46,7 @@ public class ClientControleur {
         }
 
         if (erreur) {
-            vue.erreurFormulaire(messageErreur);
+            vue.erreurFenetre(messageErreur);
             return;
         }
 
@@ -53,7 +56,7 @@ public class ClientControleur {
                     "pour le cours " + cours.getCode() + "!";
             vue.confirmerInscription(messageSucces);
         } else {
-            vue.echecInscription();
+            vue.erreurFenetre("Erreur lors de l'inscription.");
         }
     }
 }
