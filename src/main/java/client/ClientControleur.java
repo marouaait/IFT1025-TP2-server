@@ -23,9 +23,35 @@ public class ClientControleur {
     }
 
     public void inscription(String prenom, String nom, String email, String matricule, Course cours) {
+        vue.enleverErreurContour();
+        String messageErreur = "Le formulaire est invalide.\n";
+        boolean erreur = false;
+        if(cours == null) {
+            erreur = true;
+            vue.erreurCours();
+            messageErreur += "Vous devez sélectionner un cours!\n";
+        }
+        if (!email.matches("\\S+@\\S+\\.\\S+")) {
+            erreur = true;
+            vue.erreurEmail();
+            messageErreur += "Le champ 'Email' est invalide!\n";
+        }
+        if (!matricule.matches("\\d{8}")) {
+             erreur = true;
+            vue.erreurMatricule();
+            messageErreur += "Le champ 'Matricule' est invalide!\n";
+        }
+
+        if (erreur) {
+            vue.erreurFormulaire(messageErreur);
+            return;
+        }
+
         boolean succes = modele.inscrireCours(prenom, nom, email, matricule, cours);
         if (succes) {
-            vue.confirmerInscription(prenom, nom, cours);
+            String messageSucces = "Félicitations! " + prenom + " " + nom + " est inscrit(e) avec succès " +
+                    "pour le cours " + cours.getCode() + "!";
+            vue.confirmerInscription(messageSucces);
         } else {
             vue.echecInscription();
         }

@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -123,10 +124,12 @@ public class ClientVue extends Application {
         stage.show();
     }
 
-    public void confirmerInscription(String prenom, String nom, Course cours) {
+    public void confirmerInscription(String texteConfirmation) {
         for (TextField saisie : saisiesTexte) {
             saisie.clear();
         }
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, texteConfirmation, ButtonType.OK);
+        confirmation.showAndWait();
     }
 
     public void echecInscription() {
@@ -134,7 +137,26 @@ public class ClientVue extends Application {
     }
 
     public void erreurFormulaire(String texteErreur) {
-        
+        Alert erreur = new Alert(Alert.AlertType.ERROR, texteErreur, ButtonType.OK);
+        erreur.showAndWait();
+    }
+
+    public void erreurCours() {
+        tableCours.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    }
+
+    public void erreurEmail() {
+        saisiesTexte[2].setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    }
+
+    public void erreurMatricule() {
+        saisiesTexte[3].setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    }
+
+    public void enleverErreurContour() {
+        tableCours.setBorder(null);
+        saisiesTexte[2].setBorder(null);
+        saisiesTexte[3].setBorder(null);
     }
 
     public static void main(String[] args) {
