@@ -7,21 +7,21 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-
-public class ClientGUI extends Application {
+public class ClientVue extends Application {
     public static void main(String[] args) {
-        ClientGUI.launch(args);
+        ClientVue.launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
+        // Initialiser MVC
+        ClientControleur controleur = new ClientControleur(this, new ClientModele("127.0.0.1", 1337));
+
+        // Fenetre
         stage.setTitle("Inscription UdeM");
         HBox root = new HBox();
         root.setSpacing(30);
@@ -47,7 +47,7 @@ public class ClientGUI extends Application {
         tableCours.getColumns().addAll(codeColonne,coursColonne);
         listeCours.getChildren().add(tableCours);
 
-        // Boutons
+        // Bouton charger et selection de session
         HBox boutons = new HBox();
         ComboBox sessions = new ComboBox();
         sessions.getItems().addAll("Automne", "Hiver", "Été");
@@ -87,14 +87,14 @@ public class ClientGUI extends Application {
         saisies.addColumn(1,prenom,nom,email,matricule);
         formulaire.getChildren().add(saisies);
 
-        // Bouton
+        // Bouton envoyer
         Button boutonEnvoyer = new Button("envoyer");
         formulaire.getChildren().add(boutonEnvoyer);
 
         root.getChildren().add(formulaire);
 
         // Afficher la scene
-        Scene scene = new Scene(root, 600, 600);
+        Scene scene = new Scene(root, 700, 600);
         stage.setScene(scene);
         stage.show();
     }
