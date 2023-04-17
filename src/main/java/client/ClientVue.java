@@ -63,11 +63,15 @@ public class ClientVue extends Application {
         // Bouton charger et selection de session
         HBox boutons = new HBox();
         ComboBox sessions = new ComboBox();
-        sessions.getItems().addAll("Automne", "Hiver", "Été");
+        sessions.getItems().addAll("Automne", "Hiver", "Ete");
         sessions.getSelectionModel().selectFirst();
         Button boutonCharger = new Button("charger");
         boutons.getChildren().addAll(sessions, boutonCharger);
         boutons.setSpacing(50);
+
+        boutonCharger.setOnAction((action) -> {
+            controleur.chargerCoursSession(sessions.getValue().toString());
+        });
 
         listeCours.getChildren().add(boutons);
 
