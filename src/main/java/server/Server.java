@@ -13,15 +13,15 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * La classe Server recoit et traite les requetes des clients concernant la liste des cours et l'inscription aux cours.
+ * La classe Server reçoit et traite les requêtes des clients concernant la liste des cours et l'inscription aux cours.
  */
 public class Server {
     /**
-     * REGISTER_COMMAND est le nom de la commande que le client envoie pour une requete d'inscription.
+     * REGISTER_COMMAND est le nom de la commande que le client envoie pour une requête d'inscription.
      */
     public final static String REGISTER_COMMAND = "INSCRIRE";
     /**
-     * LOAD_COMMAND est le nom de la commande que le client envoie pour une requete de chargement de cours.
+     * LOAD_COMMAND est le nom de la commande que le client envoie pour une requête de chargement de cours.
      */
     public final static String LOAD_COMMAND = "CHARGER";
     private final ServerSocket server;
@@ -32,8 +32,8 @@ public class Server {
 
     /**
      * Constructeur de la classe Server.
-     * @param port Le port sur lequel le serveur est demarre.
-     * @throws IOException Lancee s'il y a un probleme lors de la creation du ServerSocket.
+     * @param port Le port sur lequel le serveur est demarré.
+     * @throws IOException Lancée s'il y a un problème lors de la création du ServerSocket.
      */
     public Server(int port) throws IOException {
         this.server = new ServerSocket(port, 1);
@@ -42,8 +42,8 @@ public class Server {
     }
 
     /**
-     * Ajouter un traiteur d'un evenement au serveur.
-     * @param h le traiteur de l'evenement.
+     * Ajouter un traiteur d'un évènement au serveur.
+     * @param h le traiteur de l'évènement.
      */
     public void addEventHandler(EventHandler h) {
         this.handlers.add(h);
@@ -56,7 +56,7 @@ public class Server {
     }
 
     /**
-     * Lancer le serveur. Le serveur se met a l'ecoute des connexions et des requetes des clients.
+     * Lancer le serveur. Le serveur se met à l'écoute des connexions et des requêtes des clients.
      */
     public void run() {
         while (true) {
@@ -75,9 +75,9 @@ public class Server {
     }
 
     /**
-     * Lire l'objet envoye par le client et alerter les traiteurs d'evenements de la requete recue.
-     * @throws IOException Lancee s'il y a un probleme avec le flux client.
-     * @throws ClassNotFoundException Lancee s'il y a un probleme avec la conversion de l'object recu.
+     * Lire l'objet envoyé par le client et alerter les traiteurs d'évènements de la requête reçue.
+     * @throws IOException Lancée s'il y a un problème avec le flux client.
+     * @throws ClassNotFoundException Lancée s'il y a un problème avec la conversion de l'object reçu.
      */
     public void listen() throws IOException, ClassNotFoundException {
         String line;
@@ -90,8 +90,8 @@ public class Server {
     }
 
     /**
-     * Transformer une requete recue en paire (commande, arguments).
-     * @param line La requete recue
+     * Transformer une requête reçue en paire (commande, arguments).
+     * @param line La requête recue
      * @return La paire (commande, arguments)
      */
     public Pair<String, String> processCommandLine(String line) {
@@ -102,8 +102,8 @@ public class Server {
     }
 
     /**
-     * Deconnecter le client.
-     * @throws IOException Lancee s'il y a un probleme avec la fermeture des flux
+     * Déconnecter le client.
+     * @throws IOException Lancée s'il y a un problème avec la fermeture des flux
      */
     public void disconnect() throws IOException {
         objectOutputStream.close();
@@ -112,7 +112,7 @@ public class Server {
     }
 
     /**
-     * Traiter la commande recue. Cette methode peut traiter les commandes d'inscriptions et de chargement de cours.
+     * Traiter la commande reçue. Cette méthode peut traiter les commandes d'inscriptions et de chargement de cours.
      * @param cmd Nom de la commande
      * @param arg Argument de la commande
      */
@@ -126,9 +126,9 @@ public class Server {
 
     /**
      * Lire le fichier cours.txt contenant la liste des cours offerts, envoyer par le flux client la liste des cours
-     * offerts dans la session specifiee par le client. L'objet envoye est une Liste&lt;Course&gt;. Les exceptions sont gerees
-     * par la methode. Par defaut, le fichier cours.txt devrait etre dans le dossier d'execution.
-     * @param arg la session pour laquelle on veut recuperer la liste des cours
+     * offerts dans la session spécifiée par le client. L'objet envoyé est une Liste&lt;Course&gt;. Les exceptions sont
+     * gérées par la méthode. Par défaut, le fichier cours.txt devrait être dans le dossier d'éxecution.
+     * @param arg la session pour laquelle on veut récupérer la liste des cours
      * @see Course
      */
     public void handleLoadCourses(String arg) {
@@ -163,9 +163,9 @@ public class Server {
     }
 
     /**
-     * Recuperer et lire l'objet 'RegistrationForm' envoye par le client, inscrire la personne du formulaire dans un
-     * ficher inscription.txt et renvoyer un booleen de confirmation dans le flux client. Les exceptions sont gerees
-     * par la methode. Par defaut, le fichier inscription.txt devrait etre dans le dossier d'execution.
+     * Récupérer et lire l'objet 'RegistrationForm' envoyé par le client, inscrire la personne du formulaire dans le
+     * ficher inscription.txt et renvoyer un booléen de confirmation dans le flux client. Les exceptions sont gérées
+     * par la méthode. Par défaut, le fichier inscription.txt devrait être dans le dossier d'exécution.
      */
     public void handleRegistration() {
         try {

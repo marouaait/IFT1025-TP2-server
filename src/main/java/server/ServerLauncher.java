@@ -1,11 +1,11 @@
 package server;
 
 /**
- * La classe ServerLauncher sert a demarrer une instance de la classe Server sur un port specifique.
+ * La classe ServerLauncher sert à demarrer une instance de la classe Server sur un port spécifique.
  */
 public class ServerLauncher {
     /**
-     * Le port sur lequel le serveur s'ouvre. Par defaut, le port est 1337.
+     * Le port sur lequel le serveur s'ouvre. Par défaut, le port est le 1337.
      */
     public final static int PORT = 1337;
 

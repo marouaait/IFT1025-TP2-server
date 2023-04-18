@@ -1,7 +1,7 @@
 package client;
 
 /**
- * La classe ClientGUILaunch sert uniquement a demarrer l'application en creeant un ClientVue.
+ * La classe ClientGUILaunch sert uniquement à démarrer l'application en créeant un ClientVue.
  */
 public class ClientGUILaunch {
     /**

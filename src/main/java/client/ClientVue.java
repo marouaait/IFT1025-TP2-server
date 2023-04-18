@@ -18,15 +18,15 @@ import server.models.Course;
 import java.util.List;
 
 /**
- * La classe ClientVue correspond a la composante Vue du pattern MVC. C'est aussi le point de depart de l'application.
+ * La classe ClientVue correspond à la composante Vue du pattern MVC. C'est aussi le point de départ de l'application.
  */
 public class ClientVue extends Application {
     private TableView<Course> tableCours;
     private TextField saisiesTexte[] = {new TextField(), new TextField(), new TextField(), new TextField()};
 
     /**
-     * Charger un cours dans la table de la liste de cours.
-     * @param cours Cours a charger
+     * Charger un cours dans la table de la liste des cours.
+     * @param cours Cours à charger
      */
     public void chargerCours(Course cours) {
         tableCours.getItems().add(cours);
@@ -40,8 +40,8 @@ public class ClientVue extends Application {
     }
 
     /**
-     * Demarrer l'application et placer les elements graphiques du GUI.
-     * @param stage Stage de la fenetre de l'application
+     * Démarrer l'application et placer les éléments graphiques du GUI.
+     * @param stage Stage de la fenêtre de l'application
      * @throws Exception
      */
     @Override
@@ -142,8 +142,8 @@ public class ClientVue extends Application {
     }
 
     /**
-     * Ouvrir une fenetre de succes/confirmation.
-     * @param texteConfirmation Texte a afficher dans la fenetre
+     * Ouvrir une fenêtre de succès/confirmation.
+     * @param texteConfirmation Texte à afficher dans la fenêtre
      */
     public void confirmerInscription(String texteConfirmation) {
         // Enlever le texte dans les zones de saisies de texte
@@ -155,8 +155,8 @@ public class ClientVue extends Application {
     }
 
     /**
-     * Ouvrir une fenetre d'erreur.
-     * @param texteErreur Texte a afficher dans la fenetre
+     * Ouvrir une fenêtre d'erreur.
+     * @param texteErreur Texte à afficher dans la fenêtre
      */
     public void erreurFenetre(String texteErreur) {
         Alert erreur = new Alert(Alert.AlertType.ERROR, texteErreur, ButtonType.OK);
@@ -164,21 +164,21 @@ public class ClientVue extends Application {
     }
 
     /**
-     * Mettre un contour rouge a la table de la liste des cours
+     * Mettre un contour rouge à la table de la liste des cours
      */
     public void erreurCours() {
         tableCours.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     }
 
     /**
-     * Mettre un contour rouge a la boite de texte pour la saisie de l'email
+     * Mettre un contour rouge à la boite de texte pour la saisie de l'email
      */
     public void erreurEmail() {
         saisiesTexte[2].setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     }
 
     /**
-     * Mettre un contour rouge a la boite de texte pour la saisie du matricule
+     * Mettre un contour rouge à la boite de texte pour la saisie du matricule
      */
     public void erreurMatricule() {
         saisiesTexte[3].setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -194,7 +194,7 @@ public class ClientVue extends Application {
     }
 
     /**
-     * Demarrer l'application
+     * Démarrer l'application
      * @param args
      */
     public static void main(String[] args) {

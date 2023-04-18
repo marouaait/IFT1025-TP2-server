@@ -3,7 +3,7 @@ package server.models;
 import java.io.Serializable;
 
 /**
- * La classe Course represente un cours offert avec un nom, un code et la session d'enseignement.
+ * La classe Course représente un cours offert avec un nom, un code et la session d'enseignement.
  */
 public class Course implements Serializable {
 

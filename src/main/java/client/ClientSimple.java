@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * La classe ClientSimple est un client en ligne de commande permettant d'envoyer des requetes de chargement de cours
+ * La classe ClientSimple est un client en ligne de commande permettant d'envoyer des requêtes de chargement de cours
  * et d'inscription au serveur.
  */
 public class ClientSimple {
@@ -26,7 +26,7 @@ public class ClientSimple {
 
     /**
      * Constructeur de la classe ClientSimple
-     * @param ip Adresse ip a laquelle la connexion se fait
+     * @param ip Adresse ip à laquelle la connexion se fait
      * @param port Port sur lequel la connexion se fait
      */
     public ClientSimple(String ip, int port) {
@@ -45,7 +45,7 @@ public class ClientSimple {
     }
 
     /**
-     * Deconnecter du serveur en fermant le socket et les flux serveurs
+     * Déconnecter du serveur en fermant le socket et les flux serveurs
      * @throws IOException
      */
     private void disconnect() throws  IOException {
@@ -55,7 +55,7 @@ public class ClientSimple {
     }
 
     /**
-     *  Envoyer une requete d'inscription au serveur en demandant la saisie de l'utilisateur en ligne de commande.
+     *  Envoyer une requête d'inscription au serveur en demandant la saisie de l'utilisateur en ligne de commande.
      */
     private void inscrireCours() {
         // Demander les informations
@@ -110,7 +110,7 @@ public class ClientSimple {
     }
 
     /**
-     * Envoyer au serveur une requete de chargement de cours en demandant la session voulue a l'utilisateur
+     * Envoyer au serveur une requête de chargement de cours en demandant la session voulue à l'utilisateur
      */
     public void consulterCours() {
         // Demander et afficher les sessions offertes
@@ -156,7 +156,7 @@ public class ClientSimple {
     }
 
     /**
-     * Demarrer le menu du client. Le menu a trois options: consulter des cours, effectuer une inscription et quitter le
+     * Démarrer le menu du client. Le menu a trois options: consulter des cours, effectuer une inscription et quitter le
      * client. L'utilisateur interagit en ligne de commande.
      */
     public void menu() {
@@ -193,7 +193,7 @@ public class ClientSimple {
     }
 
     /**
-     * Demarrer une application client en ligne de commande.
+     * Démarrer une application client en ligne de commande.
      * @param args
      */
     public static void main(String[] args) {

@@ -3,7 +3,7 @@ package server.models;
 import java.io.Serializable;
 
 /**
- * La classe RegistrationForm represente un formulaire d'inscription a un cours.
+ * La classe RegistrationForm représente un formulaire d'inscription à un cours.
  */
 public class RegistrationForm implements Serializable {
     private String prenom;
@@ -14,7 +14,7 @@ public class RegistrationForm implements Serializable {
 
     /**
      * Constructeur de la classe RegistrationForm.
-     * @param prenom Prenom de la personne.
+     * @param prenom Prénom de la personne.
      * @param nom Nom de famille de la personne.
      * @param email Email de la personne.
      * @param matricule Matricule de la personne.
@@ -29,16 +29,16 @@ public class RegistrationForm implements Serializable {
     }
 
     /**
-     * Retourner le prenom de la personne.
-     * @return Prenom de la personne.
+     * Retourner le prénom de la personne.
+     * @return Prénom de la personne.
      */
     public String getPrenom() {
         return prenom;
     }
 
     /**
-     * Changer le prenom de la personne.
-     * @param prenom Nouveau prenom.
+     * Changer le prénom de la personne.
+     * @param prenom Nouveau prénom.
      */
     public void setPrenom(String prenom) {
         this.prenom = prenom;
@@ -109,8 +109,8 @@ public class RegistrationForm implements Serializable {
     }
 
     /**
-     * Retourne un String avec le prenom, nom de famille, email, matricule et cours sur le formulaire.
-     * @return String representant le formulaire.
+     * Retourne un String avec le prénom, nom de famille, email, matricule et cours sur le formulaire.
+     * @return String représentant le formulaire.
      */
     @Override
     public String toString() {

@@ -11,8 +11,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 /**
- * La classe ClientModele correspond a la composante Modele du pattern MVC et ClientModele communique directement avec
- * le serveur en lui passant des requetes et en retirant l'information recue du serveur.
+ * La classe ClientModele correspond à la composante Modele du pattern MVC et ClientModele communique directement avec
+ * le serveur en lui passant des requêtes et en retirant l'information reçue du serveur.
  */
 public class ClientModele {
     private String ip;
@@ -24,7 +24,7 @@ public class ClientModele {
 
     /**
      * Constructeur de la classe ClientModele
-     * @param ip Adresse ip a laquelle la connexion se fait
+     * @param ip Adresse ip à laquelle la connexion se fait
      * @param port Port sur lequel la connexion se fait
      */
     public ClientModele(String ip, int port) {
@@ -43,7 +43,7 @@ public class ClientModele {
     }
 
     /**
-     * Deconnecter du serveur en fermant le socket et les flux serveurs
+     * Déconnecter du serveur en fermant le socket et les flux serveurs
      * @throws IOException
      */
     private void disconnect() throws  IOException {
@@ -53,13 +53,13 @@ public class ClientModele {
     }
 
     /**
-     * Envoyer une requete d'inscription au serveur et retourner le succes ou l'echec de la requete.
-     * @param prenom Prenom de la personne
+     * Envoyer une requête d'inscription au serveur et retourner le succès ou l'échec de la requête.
+     * @param prenom Prénom de la personne
      * @param nom Nom de famille de la personne
      * @param email Email de la personne
      * @param matricule Matricule de la personne
      * @param cours Cours auquel la personne s'inscrit
-     * @return Booleen indiquant la reussite ou l'echec de la requete
+     * @return Booléen indiquant la réussite ou l'échec de la requête
      */
     public boolean inscrireCours(String prenom, String nom, String email, String matricule, Course cours) {
         RegistrationForm formulaire = new RegistrationForm(prenom, nom, email, matricule, cours);
@@ -87,10 +87,10 @@ public class ClientModele {
     }
 
     /**
-     * Envoyer au serveur une requete de chargement de cours pour la session donnee et
-     * retourner le succes ou l'echec de la requete
+     * Envoyer au serveur une requête de chargement de cours pour la session donnée et
+     * retourner le succès ou l'échec de la requête
      * @param session Session pour laquelle le chargement des cours se fait
-     * @return Booleen indiquant la reussite ou l'echec de la requete
+     * @return Booléen indiquant la réussite ou l'échec de la requête
      */
     public boolean consulterCours(String session) {
         try {
@@ -111,8 +111,8 @@ public class ClientModele {
     }
 
     /**
-     * Retourner une copie de la liste des cours charges.
-     * @return Copie de la liste des cours charges
+     * Retourner une copie de la liste des cours chargés.
+     * @return Copie de la liste des cours chargés
      */
     public ArrayList<Course> getListeCours() {
         return new ArrayList<>(listeCours);

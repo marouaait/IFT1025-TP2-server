@@ -5,8 +5,8 @@ import server.models.Course;
 import java.util.ArrayList;
 
 /**
- * La classe ClientControleur correspond a la composante Controleur du pattern MVC et sert a relayer l'information entre
- * ClientModele (composante Modele) et ClientVue (composante Vue)
+ * La classe ClientControleur correspond à la composante Controleur du pattern MVC et sert à relayer l'information entre
+ * ClientModele (composante Modèle) et ClientVue (composante Vue)
  */
 public class ClientControleur {
     private ClientVue vue;
@@ -15,7 +15,7 @@ public class ClientControleur {
     /**
      * Constructeur de la classe ClientControleur.
      * @param vue Composante Vue
-     * @param modele Composante Modele
+     * @param modele Composante Modèle
      */
     public ClientControleur(ClientVue vue, ClientModele modele) {
         this.vue = vue;
@@ -23,7 +23,7 @@ public class ClientControleur {
     }
 
     /**
-     * Charger les cours de la session donnee dans le Modele et la Vue.
+     * Charger les cours de la session donnée dans le Modèle et la Vue.
      * @param session Session pour laquelle on charge les cours
      */
     public void chargerCoursSession(String session) {
@@ -41,8 +41,8 @@ public class ClientControleur {
     }
 
     /**
-     * Effectuer une inscription a un cours avec les parametres donnes.
-     * @param prenom Prenom de la personne
+     * Effectuer une inscription à un cours avec les paramètres donnés.
+     * @param prenom Prénom de la personne
      * @param nom Nom de famille de la personne
      * @param email Email de la personne
      * @param matricule Matricule de la personne
