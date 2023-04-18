@@ -17,18 +17,33 @@ import server.models.Course;
 
 import java.util.List;
 
+/**
+ * La classe ClientVue correspond a la composante Vue du pattern MVC. C'est aussi le point de depart de l'application.
+ */
 public class ClientVue extends Application {
     private TableView<Course> tableCours;
     private TextField saisiesTexte[] = {new TextField(), new TextField(), new TextField(), new TextField()};
 
+    /**
+     * Charger un cours dans la table de la liste de cours.
+     * @param cours Cours a charger
+     */
     public void chargerCours(Course cours) {
         tableCours.getItems().add(cours);
     }
 
+    /**
+     * Enlever la liste des cours dans la table.
+     */
     public void enleverListe() {
         tableCours.getItems().clear();
     }
 
+    /**
+     * Demarrer l'application et placer les elements graphiques du GUI.
+     * @param stage Stage de la fenetre de l'application
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         // Initialiser MVC
@@ -77,6 +92,7 @@ public class ClientVue extends Application {
 
         listeCours.getChildren().add(boutons);
 
+        // Ajouter la partie listeCours
         root.getChildren().add(listeCours);
 
         root.getChildren().add(new Separator(Orientation.VERTICAL));
@@ -116,6 +132,7 @@ public class ClientVue extends Application {
             controleur.inscription(prenom, nom, email, matricule, cours);
         });
 
+        // Ajouter la partie formulaire
         root.getChildren().add(formulaire);
 
         // Afficher la scene
@@ -124,7 +141,12 @@ public class ClientVue extends Application {
         stage.show();
     }
 
+    /**
+     * Ouvrir une fenetre de succes/confirmation.
+     * @param texteConfirmation Texte a afficher dans la fenetre
+     */
     public void confirmerInscription(String texteConfirmation) {
+        // Enlever le texte dans les zones de saisies de texte
         for (TextField saisie : saisiesTexte) {
             saisie.clear();
         }
@@ -132,29 +154,49 @@ public class ClientVue extends Application {
         confirmation.showAndWait();
     }
 
+    /**
+     * Ouvrir une fenetre d'erreur.
+     * @param texteErreur Texte a afficher dans la fenetre
+     */
     public void erreurFenetre(String texteErreur) {
         Alert erreur = new Alert(Alert.AlertType.ERROR, texteErreur, ButtonType.OK);
         erreur.showAndWait();
     }
 
+    /**
+     * Mettre un contour rouge a la table de la liste des cours
+     */
     public void erreurCours() {
         tableCours.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     }
 
+    /**
+     * Mettre un contour rouge a la boite de texte pour la saisie de l'email
+     */
     public void erreurEmail() {
         saisiesTexte[2].setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     }
 
+    /**
+     * Mettre un contour rouge a la boite de texte pour la saisie du matricule
+     */
     public void erreurMatricule() {
         saisiesTexte[3].setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     }
 
+    /**
+     * Enlever les contours d'erreur de toutes les zones.
+     */
     public void enleverErreurContour() {
         tableCours.setBorder(null);
         saisiesTexte[2].setBorder(null);
         saisiesTexte[3].setBorder(null);
     }
 
+    /**
+     * Demarrer l'application
+     * @param args
+     */
     public static void main(String[] args) {
         ClientVue.launch(args);
     }
