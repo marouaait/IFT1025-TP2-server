@@ -127,7 +127,7 @@ public class Server {
     /**
      * Lire le fichier cours.txt contenant la liste des cours offerts, envoyer par le flux client la liste des cours
      * offerts dans la session specifiee par le client. L'objet envoye est une Liste&lt;Course&gt;. Les exceptions sont gerees
-     * par la methode.
+     * par la methode. Par defaut, le fichier cours.txt devrait etre dans le dossier d'execution.
      * @param arg la session pour laquelle on veut recuperer la liste des cours
      * @see Course
      */
@@ -135,7 +135,8 @@ public class Server {
         // TODO: implémenter cette méthode
         try {
             // Ouverture du fichier cours.txt
-            Scanner sc = new Scanner(new File("src/main/java/server/data/cours.txt"));
+            //Scanner sc = new Scanner(new File("src/main/java/server/data/cours.txt")); // Pour tester dans le projet IntelliJ
+            Scanner sc = new Scanner(new File("cours.txt"));
 
             List<Course> listeCours = new ArrayList<>();
             // Trouver tous les cours dans la session donnée
@@ -164,7 +165,7 @@ public class Server {
     /**
      * Recuperer et lire l'objet 'RegistrationForm' envoye par le client, inscrire la personne du formulaire dans un
      * ficher inscription.txt et renvoyer un booleen de confirmation dans le flux client. Les exceptions sont gerees
-     * par la methode.
+     * par la methode. Par defaut, le fichier inscription.txt devrait etre dans le dossier d'execution.
      */
     public void handleRegistration() {
         try {
@@ -172,7 +173,8 @@ public class Server {
             RegistrationForm rf = (RegistrationForm) objectInputStream.readObject();
 
             // Écriture dans le fichier
-            File fichierInscription = new File("src/main/java/server/data/inscription.txt");
+            //File fichierInscription = new File("src/main/java/server/data/inscription.txt"); // Pour tester dans le projet IntelliJ
+            File fichierInscription = new File("inscription.txt");
             try {
                 // Verifier que le fichier inscription.txt existe
                 if (!fichierInscription.isFile()) {
